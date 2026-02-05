@@ -17,6 +17,8 @@ body {
   background-color: var(--blanco);
 }
 
+/*Navbar*/
+
 header > div {
   display: flex;
   align-items: center;
@@ -56,5 +58,78 @@ header nav {
 @media (max-width: 991px) {
   #navbarNav .navbar-nav {
     align-items: flex-end;
+  }
+}
+/*Veterinaria Huellas*/
+#veterinaria-huellas {
+  background-image: url("img/imagenPresentacion.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#veterinaria-huellas .centrado {
+  position: relative;
+  z-index: 2;
+}
+
+/* Estilos para los botones */
+#veterinaria-huellas .btn {
+  padding: 12px 30px;
+  background-color: var(--verde);
+  color: var(--blanco);
+  text-decoration: none;
+  border-radius: 10px;
+  border: 3px solid var(--blanco);
+  display: inline-block;
+  font-weight: 500;
+}
+
+#veterinaria-huellas .btn:hover {
+  background-color: var(--blanco);
+  color: var(--verde);
+  border: 3px solid var(--verde);
+}
+
+#veterinaria-huellas .btnDos {
+  padding: 12px 30px;
+  background-color: var(--blanco);
+  color: var(--verde);
+  text-decoration: none;
+  border: 3px solid var(--verde);
+  border-radius: 10px;
+  display: inline-block;
+  font-weight: 500;
+}
+
+#veterinaria-huellas .btnDos:hover {
+  background-color: var(--verde);
+  color: var(--blanco);
+  border: 3px solid var(--blanco);
+}
+
+#veterinaria-huellas h2 {
+  font-size: 3rem;
+  color: var(--blanco);
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+#veterinaria-huellas h1 {
+  font-size: 5rem;
+  color: var(--blanco);
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+@media (max-width: 768px) {
+  #veterinaria-huellas h2 {
+    font-size: 3rem;
+  }
+
+  #veterinaria-huellas h1 {
+    font-size: 4rem;
   }
 }
