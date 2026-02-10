@@ -10,6 +10,7 @@
   --blanco: #ffffff;
   --verde: #50bda7;
   --fuente-principal: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -279,3 +280,75 @@ header nav {
   }
 }
 
+/* Sección Contacto */
+#contacto {
+  background-color: #f8f9fa;
+  padding: 60px 0;
+}
+
+#contacto h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#contacto h3 {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+/* Items de contacto */
+.contacto-item i {
+  font-size: 1.5rem;
+  color: var(--verde);
+  margin-top: 5px;
+}
+
+.contacto-item h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.contacto-item p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.contacto-item a {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contacto-item a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.mapa-contenedor {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mapa-contenedor iframe {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  #contacto h2 {
+    font-size: 2rem;
+  }
+
+  .info-contacto {
+    margin-bottom: 30px;
+  }
+}
