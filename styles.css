@@ -253,33 +253,122 @@ header nav {
   border-radius: var(--radio-borde);
   padding: 1.5rem;
   font-weight: 500;
-  /* ── Sección general ── */
-  .seccion-profesionales {
-    background-color: #f9f6f2;
-  }
 }
 
-  .filtro-btn { background:#fff; border:2px solid #4caf82; color:#4caf82; padding:6px 18px; border-radius:20px; font-size:.9rem; cursor:pointer; transition:all .25s; }
-  .filtro-btn:hover, .filtro-btn.active { background:#4caf82; color:#fff; }
+/* ── Sección general ── */
+.seccion-profesionales {
+  background-color: #f9f6f2;
+}
 
-  .card-profesional { border:none; border-radius:16px; overflow:hidden; transition:transform .2s, box-shadow .2s; }
-  .card-profesional:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(0,0,0,.12)!important; }
+.filtro-btn {
+  background: #fff;
+  border: 2px solid #4caf82;
+  color: #4caf82;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.25s;
+}
 
-  .card-img-wrapper { position:relative; }
-  .prof-foto-placeholder { width:100%; height:220px; display:flex; align-items:center; justify-content:center; font-size:5rem; }
-  .bg-vet   { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
-  .bg-est   { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+.filtro-btn:hover,
+.filtro-btn.active {
+  background: #4caf82;
+  color: #fff;
+}
 
-  .badge-tipo { position:absolute; top:10px; right:10px; padding:4px 10px; border-radius:12px; font-size:.75rem; font-weight:600; }
-  .badge-vet { background:#e8f5e9; color:#2e7d32; }
-  .badge-estilista { background:#fce4ec; color:#c2185b; }
+.card-profesional {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
 
-  .prof-nombre { font-size:1.05rem; font-weight:700; color:#2c2c2c; margin-bottom:2px; }
-  .prof-especialidad { font-size:.8rem; color:#555; margin-bottom:6px; line-height:1.4; }
-  .prof-bio { font-size:.82rem; color:#888; font-style:italic; border-left:3px solid #4caf82; padding-left:8px; margin-bottom:10px; }
-  .prof-servicios-label { font-size:.75rem; color:#aaa; margin-bottom:5px; text-transform:uppercase; letter-spacing:.5px; }
-  .servicios-container { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
-  .servicio-tag { background:#eef7f2; color:#3a7d5e; font-size:.72rem; padding:3px 9px; border-radius:10px; border:1px solid #c8e6c9; }
+.card-profesional:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+}
+
+.card-img-wrapper {
+  position: relative;
+}
+
+.prof-foto-placeholder {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+}
+.bg-vet {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+}
+.bg-est {
+  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+}
+
+.badge-tipo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-vet {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+.badge-estilista {
+  background: #fce4ec;
+  color: #c2185b;
+}
+
+.prof-nombre {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #2c2c2c;
+  margin-bottom: 2px;
+}
+.prof-especialidad {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.prof-bio {
+  font-size: 0.82rem;
+  color: #888;
+  font-style: italic;
+  border-left: 3px solid #4caf82;
+  padding-left: 8px;
+  margin-bottom: 10px;
+}
+.prof-servicios-label {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.servicios-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.servicio-tag {
+  background: #eef7f2;
+  color: #3a7d5e;
+  font-size: 0.72rem;
+  padding: 3px 9px;
+  border-radius: 10px;
+  border: 1px solid #c8e6c9;
+}
 
 /* ── Card profesional ── */
 .card-profesional {
@@ -291,13 +380,33 @@ header nav {
     box-shadow 0.2s ease;
 }
 
-  .count-badge { background:#4caf8222; color:#2e7d32; font-size:.8rem; padding:3px 10px; border-radius:10px; font-weight:600; }
+.count-badge {
+  background: #4caf8222;
+  color: #2e7d32;
+  font-size: 0.8rem;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+}
 
-  @media(max-width:576px){
-    .seccion-titulo{font-size:1.6rem;}
-    .prof-foto-placeholder{height:180px;}
-    .nav-links{display:none;}
+.prof-foto {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: top;
+}
+
+@media (max-width: 576px) {
+  .seccion-titulo {
+    font-size: 1.6rem;
   }
+  .prof-foto-placeholder {
+    height: 180px;
+  }
+  .nav-links {
+    display: none;
+  }
+}
 
 /* Sección Contacto */
 #contacto {

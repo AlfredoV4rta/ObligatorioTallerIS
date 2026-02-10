@@ -68,7 +68,7 @@ function renderTarjetaProfesional(prof) {
     .join("");
 
   return `
-    <div class="col-12 col-sm-6 col-lg-4 mb-4">
+    <div class="col-12 col-sm-6 col-lg-3 mb-4">
       <div class="card card-profesional h-100 shadow-sm">
         <div class="card-img-wrapper">
           <img
@@ -112,10 +112,17 @@ function renderProfesionales() {
 
   // Filtro activo
   const filtroActivo = document.querySelector(".filtro-btn.active")?.dataset.tipo || "todos";
-  const filtrados =
-    filtroActivo === "todos"
-      ? profesionales
-      : profesionales.filter((p) => p.tipo.toLowerCase().includes(filtroActivo));
+
+  let filtrados;
+  if (filtroActivo === "todos") {
+    filtrados = profesionales;
+  } else if (filtroActivo === "veterinario") {
+    filtrados = profesionales.filter((p) => p.tipo.toLowerCase().includes("veterinari"));
+  } else if (filtroActivo === "estilista") {
+    filtrados = profesionales.filter((p) => p.tipo.toLowerCase().includes("estética"));
+  } else {
+    filtrados = profesionales;
+  }
 
   contenedor.innerHTML = filtrados.map(renderTarjetaProfesional).join("");
 }
