@@ -1,5 +1,5 @@
 /**
- * Aplicación Principal - Gestión de Servicios
+ * Módulo de Gestión de Servicios
  * Maneja la visualización del catálogo de servicios desde LocalStorage
  */
 
@@ -10,6 +10,17 @@
     const contenedorCatalogo = document.getElementById('catalogoServicios');
     const mensajeCargando = document.getElementById('mensajeCargando');
     const mensajeError = document.getElementById('mensajeError');
+
+    /**
+     * Mapeo de iconos para cada servicio
+     * Bootstrap Icons
+     */
+    const iconosServicios = {
+        'bi-clipboard2-pulse': 'bi-clipboard2-pulse',
+        'bi-shield-fill-check': 'bi-shield-fill-check',
+        'bi-heart-pulse': 'bi-heart-pulse',
+        'bi-scissors': 'bi-scissors'
+    };
 
     /**
      * Formatea el precio en formato de moneda argentina

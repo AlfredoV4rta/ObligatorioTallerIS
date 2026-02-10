@@ -10,6 +10,17 @@
   --blanco: #ffffff;
   --verde: #50bda7;
   --fuente-principal: "Poppins", sans-serif;
+  --color-primario: #0d6efd;
+  --color-secundario: #6c757d;
+  --color-exito: #198754;
+  --color-info: #0dcaf0;
+  --color-advertencia: #ffc107;
+  --color-peligro: #dc3545;
+  --fondo-claro: #f8f9fa;
+  --texto-oscuro: #212529;
+  --radio-borde: 12px;
+  --sombra-caja: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transicion: all 0.3s ease;
 }
 
 body {
@@ -132,4 +143,112 @@ header nav {
   #veterinaria-huellas h1 {
     font-size: 4rem;
   }
+}
+
+/*Seccion Servicios*/
+
+#servicios {
+    min-height: 500px;
+}
+
+.tarjeta-servicio {
+    background: white;
+    border-radius: var(--radio-borde);
+    overflow: hidden;
+    box-shadow: var(--sombra-caja);
+    transition: var(--transicion);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+}
+
+.tarjeta-servicio:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.icono-servicio {
+    background: linear-gradient(135deg, var(--color-primario) 0%, #0a58ca 100%);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    transition: var(--transicion);
+}
+
+.tarjeta-servicio:hover .icono-servicio {
+    background: linear-gradient(135deg, #0a58ca 0%, var(--color-primario) 100%);
+}
+
+.cuerpo-servicio {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo-servicio {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin-bottom: 1rem;
+}
+
+.descripcion-servicio {
+    color: var(--color-secundario);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.pie-servicio {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 2px solid #f0f0f0;
+}
+
+.precio-servicio {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primario);
+}
+
+.precio-servicio small {
+    font-size: 1rem;
+    color: var(--color-secundario);
+    font-weight: 400;
+}
+
+.boton-reservar {
+    background: var(--color-primario);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transicion);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.boton-reservar:hover {
+    background: #0a58ca;
+    transform: scale(1.05);
+    color: white;
+}
+
+/* ==================== Mensajes de Estado ==================== */
+#mensajeCargando {
+    padding: 3rem;
+    animation: pulsar 1.5s ease-in-out infinite;
+}
+
+#mensajeError {
+    border-radius: var(--radio-borde);
+    padding: 1.5rem;
+    font-weight: 500;
 }
