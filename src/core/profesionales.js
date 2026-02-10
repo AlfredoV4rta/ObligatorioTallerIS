@@ -2,38 +2,38 @@
 // profesionales.js - Veterinaria Huellas
 // Gestión de profesionales con LocalStorage
 // ============================================================
-localStorage.removeItem("vh_profesionales");
+localStorage.removeItem("vh_profesionales"); // ⚠️ Sacar cuando los datos sean definitivos
+
 const STORAGE_KEY = "vh_profesionales";
 
 // Datos iniciales (seed) — se cargan solo si LocalStorage está vacío
 const profesionalesIniciales = [
   {
     id: 1,
-    nombre: "Dra. Laura Méndez",
-    tipo: "veterinario",
-    foto: "img/mujer1.png", // reemplazá con tu imagen
-    servicios: ["Consulta general", "Vacunación", "Cirugía menor", "Diagnóstico por imagen"],
+    nombre: "Dra. Sofía Pereira",
+    tipo: "Veterinaria",
+    foto: "img/mujer1.png",
+    especialidad: "Clínica general y medicina preventiva (vacunas, controles)",
+    bio: "Me enfoco en prevenir problemas antes de que aparezcan y en explicar todo de forma clara.",
+    servicios: ["Clínica general", "Vacunas", "Controles preventivos", "Medicina preventiva"],
   },
   {
     id: 2,
-    nombre: "Dr. Martín Torres",
-    tipo: "veterinario",
+    nombre: "Dr. Martín Rodríguez",
+    tipo: "Veterinario",
     foto: "img/hombre1.png",
-    servicios: ["Consulta general", "Odontología veterinaria", "Desparasitación"],
+    especialidad: "Cirugía menor (castraciones) y urgencias",
+    bio: "Trabajo con procedimientos seguros y un seguimiento postoperatorio cercano.",
+    servicios: ["Cirugía menor", "Castraciones", "Urgencias", "Postoperatorio"],
   },
   {
     id: 3,
-    nombre: "Sofía Ramírez",
-    tipo: "estilista",
+    nombre: "Valentina López",
+    tipo: "Estética y baño",
     foto: "img/mujer2.png",
-    servicios: ["Baño y secado", "Corte de pelo", "Corte de uñas", "Limpieza de oídos"],
-  },
-  {
-    id: 4,
-    nombre: "Camila Ortega",
-    tipo: "estilista",
-    foto: "img/mujer3.png",
-    servicios: ["Baño y secado", "Corte de pelo", "Desmanche de pelaje", "Perfumado"],
+    especialidad: "Baño, secado, corte higiénico y manejo de mascotas nerviosas",
+    bio: "Prioridad: que la experiencia sea tranquila y sin estrés.",
+    servicios: ["Baño y secado", "Corte higiénico", "Manejo amable", "Mascotas nerviosas"],
   },
 ];
 
@@ -53,11 +53,13 @@ function seedProfesionales() {
 // ── Render ──────────────────────────────────────────────────
 
 function getBadgeClass(tipo) {
-  return tipo === "veterinario" ? "badge-vet" : "badge-estilista";
+  const t = tipo.toLowerCase();
+  return t.includes("veterinari") ? "badge-vet" : "badge-estilista";
 }
 
 function getIcono(tipo) {
-  return tipo === "veterinario" ? "🩺" : "✂️";
+  const t = tipo.toLowerCase();
+  return t.includes("veterinari") ? "🩺" : "✂️";
 }
 
 function renderTarjetaProfesional(prof) {
@@ -66,7 +68,7 @@ function renderTarjetaProfesional(prof) {
     .join("");
 
   return `
-    <div class="col-12 col-sm-6 col-lg-3 mb-4">
+    <div class="col-12 col-sm-6 col-lg-4 mb-4">
       <div class="card card-profesional h-100 shadow-sm">
         <div class="card-img-wrapper">
           <img
@@ -76,16 +78,17 @@ function renderTarjetaProfesional(prof) {
             onerror="this.src='img/avatar-default.png'; this.onerror=null;"
           />
           <span class="badge-tipo ${getBadgeClass(prof.tipo)}">
-            ${getIcono(prof.tipo)} ${capitalizar(prof.tipo)}
+            ${getIcono(prof.tipo)} ${prof.tipo}
           </span>
         </div>
         <div class="card-body d-flex flex-column">
           <h5 class="card-title prof-nombre">${prof.nombre}</h5>
+          <p class="prof-especialidad">⭐ ${prof.especialidad}</p>
+          <p class="prof-bio">"${prof.bio}"</p>
           <p class="prof-servicios-label">Servicios:</p>
           <div class="servicios-container">
             ${serviciosHTML}
           </div>
-          <a href="#reservar" class="btn btn-reservar mt-auto">Reservar turno</a>
         </div>
       </div>
     </div>
@@ -112,7 +115,7 @@ function renderProfesionales() {
   const filtrados =
     filtroActivo === "todos"
       ? profesionales
-      : profesionales.filter((p) => p.tipo === filtroActivo);
+      : profesionales.filter((p) => p.tipo.toLowerCase().includes(filtroActivo));
 
   contenedor.innerHTML = filtrados.map(renderTarjetaProfesional).join("");
 }
