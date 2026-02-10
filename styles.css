@@ -9,6 +9,7 @@
 :root {
   --blanco: #ffffff;
   --verde: #50bda7;
+  --verde-oscuro: #3a8c7a;
   --fuente-principal: "Poppins", sans-serif;
   --color-primario: #0d6efd;
   --color-secundario: #6c757d;
@@ -149,112 +150,113 @@ header nav {
 /*Seccion Servicios*/
 
 #servicios {
-    min-height: 500px;
+  min-height: 500px;
 }
 
 .tarjeta-servicio {
-    background: white;
-    border-radius: var(--radio-borde);
-    overflow: hidden;
-    box-shadow: var(--sombra-caja);
-    transition: var(--transicion);
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    border: none;
+  background: white;
+  border-radius: var(--radio-borde);
+  overflow: hidden;
+  box-shadow: var(--sombra-caja);
+  transition: var(--transicion);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: none;
 }
 
 .tarjeta-servicio:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .icono-servicio {
-    background: linear-gradient(135deg, var(--color-primario) 0%, #0a58ca 100%);
-    color: white;
-    padding: 2rem;
-    text-align: center;
-    font-size: 3rem;
-    transition: var(--transicion);
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde) 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  font-size: 3rem;
+  transition: var(--transicion);
 }
 
 .tarjeta-servicio:hover .icono-servicio {
-    background: linear-gradient(135deg, #0a58ca 0%, var(--color-primario) 100%);
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde) 100%);
 }
 
 .cuerpo-servicio {
-    padding: 1.5rem;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .titulo-servicio {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+  margin-bottom: 1rem;
 }
 
 .descripcion-servicio {
-    color: var(--color-secundario);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
+  color: var(--color-secundario);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
 }
 
 .pie-servicio {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 2px solid #f0f0f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
 }
 
 .precio-servicio {
-    font-size: 1.75rem;
-    font-weight: 700;
-    color: var(--color-primario);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--verde);
 }
 
 .precio-servicio small {
-    font-size: 1rem;
-    color: var(--color-secundario);
-    font-weight: 400;
+  font-size: 1rem;
+  color: var(--color-secundario);
+  font-weight: 400;
 }
 
 .boton-reservar {
-    background: var(--color-primario);
-    color: white;
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 50px;
-    font-weight: 600;
-    transition: var(--transicion);
-    text-decoration: none;
-    display: inline-block;
+  background: var(--verde);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: var(--transicion);
+  text-decoration: none;
+  display: inline-block;
 }
 
 .boton-reservar:hover {
-    background: #0a58ca;
-    transform: scale(1.05);
-    color: white;
+  background: var(--verde-oscuro);
+  transform: scale(1.05);
+  color: white;
 }
 
 /* ==================== Mensajes de Estado ==================== */
 #mensajeCargando {
-    padding: 3rem;
-    animation: pulsar 1.5s ease-in-out infinite;
+  padding: 3rem;
+  animation: pulsar 1.5s ease-in-out infinite;
 }
 
 #mensajeError {
-    border-radius: var(--radio-borde);
-    padding: 1.5rem;
-    font-weight: 500;
-/* ── Sección general ── */
-.seccion-profesionales {
-  background-color: #f9f6f2;
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  font-weight: 500;
+  /* ── Sección general ── */
+  .seccion-profesionales {
+    background-color: #f9f6f2;
+  }
 }
 
 .seccion-titulo {
@@ -295,7 +297,9 @@ header nav {
   border: none;
   border-radius: 16px;
   overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .card-profesional:hover {
@@ -420,7 +424,7 @@ header nav {
 /* Items de contacto */
 .contacto-item i {
   font-size: 1.5rem;
-  color: var(--verde);
+  color: var(--verde-oscuro);
   margin-top: 5px;
 }
 
@@ -437,18 +441,6 @@ header nav {
   margin: 0;
   line-height: 1.6;
 }
-
-.contacto-item a {
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contacto-item a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
 .mapa-contenedor {
   border-radius: 10px;
   overflow: hidden;
