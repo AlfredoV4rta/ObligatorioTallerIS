@@ -9,7 +9,19 @@
 :root {
   --blanco: #ffffff;
   --verde: #50bda7;
+  --verde-oscuro: #3a8c7a;
   --fuente-principal: "Poppins", sans-serif;
+  --color-primario: #0d6efd;
+  --color-secundario: #6c757d;
+  --color-exito: #198754;
+  --color-info: #0dcaf0;
+  --color-advertencia: #ffc107;
+  --color-peligro: #dc3545;
+  --fondo-claro: #f8f9fa;
+  --texto-oscuro: #212529;
+  --radio-borde: 12px;
+  --sombra-caja: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transicion: all 0.3s ease;
   scroll-behavior: smooth;
 }
 
@@ -135,11 +147,117 @@ header nav {
   }
 }
 
-/* ── Sección general ── */
-.seccion-profesionales { padding: 60px 0; background:#f9f6f2; }
-  .seccion-titulo { font-size:2rem; font-weight:700; color:#2c2c2c; }
-  .titulo-highlight { color:#4caf82; }
-  .seccion-subtitulo { color:#888; font-size:1rem; }
+/*Seccion Servicios*/
+
+#servicios {
+  min-height: 500px;
+}
+
+.tarjeta-servicio {
+  background: white;
+  border-radius: var(--radio-borde);
+  overflow: hidden;
+  box-shadow: var(--sombra-caja);
+  transition: var(--transicion);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.tarjeta-servicio:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.icono-servicio {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde) 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  font-size: 3rem;
+  transition: var(--transicion);
+}
+
+.tarjeta-servicio:hover .icono-servicio {
+  background: linear-gradient(135deg, var(--verde) 0%, var(--verde) 100%);
+}
+
+.cuerpo-servicio {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-servicio {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--texto-oscuro);
+  margin-bottom: 1rem;
+}
+
+.descripcion-servicio {
+  color: var(--color-secundario);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.pie-servicio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+}
+
+.precio-servicio {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--verde);
+}
+
+.precio-servicio small {
+  font-size: 1rem;
+  color: var(--color-secundario);
+  font-weight: 400;
+}
+
+.boton-reservar {
+  background: var(--verde);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: var(--transicion);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.boton-reservar:hover {
+  background: var(--verde-oscuro);
+  transform: scale(1.05);
+  color: white;
+}
+
+/* ==================== Mensajes de Estado ==================== */
+#mensajeCargando {
+  padding: 3rem;
+  animation: pulsar 1.5s ease-in-out infinite;
+}
+
+#mensajeError {
+  border-radius: var(--radio-borde);
+  padding: 1.5rem;
+  font-weight: 500;
+  /* ── Sección general ── */
+  .seccion-profesionales {
+    background-color: #f9f6f2;
+  }
+}
 
   .filtro-btn { background:#fff; border:2px solid #4caf82; color:#4caf82; padding:6px 18px; border-radius:20px; font-size:.9rem; cursor:pointer; transition:all .25s; }
   .filtro-btn:hover, .filtro-btn.active { background:#4caf82; color:#fff; }
@@ -163,8 +281,15 @@ header nav {
   .servicios-container { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:12px; }
   .servicio-tag { background:#eef7f2; color:#3a7d5e; font-size:.72rem; padding:3px 9px; border-radius:10px; border:1px solid #c8e6c9; }
 
-  .btn-reservar { background:#4caf82; color:#fff; border:none; border-radius:20px; padding:8px 20px; font-size:.9rem; width:100%; transition:background .2s; cursor:pointer; display:block; text-align:center; text-decoration:none; }
-  .btn-reservar:hover { background:#3a9970; color:#fff; }
+/* ── Card profesional ── */
+.card-profesional {
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
 
   .count-badge { background:#4caf8222; color:#2e7d32; font-size:.8rem; padding:3px 10px; border-radius:10px; font-weight:600; }
 
@@ -197,7 +322,7 @@ header nav {
 /* Items de contacto */
 .contacto-item i {
   font-size: 1.5rem;
-  color: var(--verde);
+  color: var(--verde-oscuro);
   margin-top: 5px;
 }
 
@@ -214,18 +339,6 @@ header nav {
   margin: 0;
   line-height: 1.6;
 }
-
-.contacto-item a {
-  color: #007bff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contacto-item a:hover {
-  color: #0056b3;
-  text-decoration: underline;
-}
-
 .mapa-contenedor {
   border-radius: 10px;
   overflow: hidden;
