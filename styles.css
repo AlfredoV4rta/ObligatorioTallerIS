@@ -30,8 +30,6 @@ body {
   background-color: var(--blanco);
 }
 
-/*Navbar*/
-
 header > div {
   display: flex;
   align-items: center;
@@ -73,7 +71,7 @@ header nav {
     align-items: flex-end;
   }
 }
-/*Veterinaria Huellas*/
+
 #veterinaria-huellas {
   background-image: url("img/imagenPresentacion.jpg");
   background-size: cover;
@@ -86,7 +84,6 @@ header nav {
   z-index: 2;
 }
 
-/* Estilos para los botones */
 #veterinaria-huellas .btn {
   padding: 12px 30px;
   background-color: var(--verde);
@@ -141,13 +138,10 @@ header nav {
   #veterinaria-huellas h2 {
     font-size: 3rem;
   }
-
   #veterinaria-huellas h1 {
     font-size: 4rem;
   }
 }
-
-/*Seccion Servicios*/
 
 #servicios {
   min-height: 500px;
@@ -177,10 +171,6 @@ header nav {
   text-align: center;
   font-size: 3rem;
   transition: var(--transicion);
-}
-
-.tarjeta-servicio:hover .icono-servicio {
-  background: linear-gradient(135deg, var(--verde) 0%, var(--verde) 100%);
 }
 
 .cuerpo-servicio {
@@ -243,7 +233,6 @@ header nav {
   color: white;
 }
 
-/* ==================== Mensajes de Estado ==================== */
 #mensajeCargando {
   padding: 3rem;
   animation: pulsar 1.5s ease-in-out infinite;
@@ -255,7 +244,6 @@ header nav {
   font-weight: 500;
 }
 
-/* ── Sección general ── */
 .seccion-profesionales {
   background-color: #f9f6f2;
 }
@@ -295,21 +283,6 @@ header nav {
   position: relative;
 }
 
-.prof-foto-placeholder {
-  width: 100%;
-  height: 220px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 5rem;
-}
-.bg-vet {
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
-}
-.bg-est {
-  background: linear-gradient(135deg, #fce4ec, #f8bbd0);
-}
-
 .badge-tipo {
   position: absolute;
   top: 10px;
@@ -319,10 +292,12 @@ header nav {
   font-size: 0.75rem;
   font-weight: 600;
 }
+
 .badge-vet {
   background: #e8f5e9;
   color: #2e7d32;
 }
+
 .badge-estilista {
   background: #fce4ec;
   color: #c2185b;
@@ -334,12 +309,14 @@ header nav {
   color: #2c2c2c;
   margin-bottom: 2px;
 }
+
 .prof-especialidad {
   font-size: 0.8rem;
   color: #555;
   margin-bottom: 6px;
   line-height: 1.4;
 }
+
 .prof-bio {
   font-size: 0.82rem;
   color: #888;
@@ -348,6 +325,7 @@ header nav {
   padding-left: 8px;
   margin-bottom: 10px;
 }
+
 .prof-servicios-label {
   font-size: 0.75rem;
   color: #aaa;
@@ -355,12 +333,14 @@ header nav {
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
+
 .servicios-container {
   display: flex;
   flex-wrap: wrap;
   gap: 5px;
   margin-bottom: 12px;
 }
+
 .servicio-tag {
   background: #eef7f2;
   color: #3a7d5e;
@@ -368,16 +348,6 @@ header nav {
   padding: 3px 9px;
   border-radius: 10px;
   border: 1px solid #c8e6c9;
-}
-
-/* ── Card profesional ── */
-.card-profesional {
-  border: none;
-  border-radius: 16px;
-  overflow: hidden;
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
 }
 
 .count-badge {
@@ -396,19 +366,6 @@ header nav {
   object-position: top;
 }
 
-@media (max-width: 576px) {
-  .seccion-titulo {
-    font-size: 1.6rem;
-  }
-  .prof-foto-placeholder {
-    height: 180px;
-  }
-  .nav-links {
-    display: none;
-  }
-}
-
-/* Sección Contacto */
 #contacto {
   background-color: #f8f9fa;
   padding: 60px 0;
@@ -428,7 +385,6 @@ header nav {
   margin-bottom: 30px;
 }
 
-/* Items de contacto */
 .contacto-item i {
   font-size: 1.5rem;
   color: var(--verde-oscuro);
@@ -448,6 +404,7 @@ header nav {
   margin: 0;
   line-height: 1.6;
 }
+
 .mapa-contenedor {
   border-radius: 10px;
   overflow: hidden;
@@ -458,13 +415,17 @@ header nav {
   display: block;
 }
 
-/* Responsive */
 @media (max-width: 991px) {
   #contacto h2 {
     font-size: 2rem;
   }
-
   .info-contacto {
     margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .seccion-titulo {
+    font-size: 1.6rem;
   }
 }

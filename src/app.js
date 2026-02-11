@@ -1,201 +1,212 @@
 /**
- * Aplicación Principal - Gestión de Servicios
- * Maneja la visualización del catálogo de servicios desde LocalStorage
+ * Aplicación Principal - Veterinaria Huellas
+ * Responsabilidad: SOLO interacción con el DOM y orquestación
+ * NO maneja datos ni hace CRUD
  */
 
-(function() {
-    'use strict';
+import { obtenerServicios } from './core/servicios.js';
+import {
+    obtenerProfesionales,
+    filtrarProfesionalesPorTipo,
+    getBadgeClass
+} from './core/profesionales.js';
 
-    // Referencias a elementos del DOM
-    const contenedorCatalogo = document.getElementById('catalogoServicios');
-    const mensajeCargando = document.getElementById('mensajeCargando');
-    const mensajeError = document.getElementById('mensajeError');
+// ====================================
+// ELEMENTOS DEL DOM
+// ====================================
 
-    /**
-     * Formatea el precio en formato de moneda argentina
-     * @param {number} precio - Precio a formatear
-     * @returns {string} Precio formateado
-     */
-    function formatearPrecio(precio) {
-        return new Intl.NumberFormat('es-AR', {
-            style: 'currency',
-            currency: 'ARS',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(precio);
-    }
+const elementos = {
+    // Servicios
+    catalogoServicios: document.getElementById('catalogoServicios'),
+    mensajeCargando: document.getElementById('mensajeCargando'),
+    mensajeError: document.getElementById('mensajeError'),
 
-    /**
-     * Crea una tarjeta HTML para un servicio
-     * @param {Object} servicio - Objeto servicio con datos
-     * @returns {string} HTML de la tarjeta
-     */
-    function crearTarjetaServicio(servicio) {
-        const icono = servicio.icono || 'bi-heart-pulse';
-        const precioFormateado = formatearPrecio(servicio.precio);
-        
-        return `
-            <div class="col-12 col-md-6 col-lg-3 aparecer-suave">
-                <div class="card tarjeta-servicio">
-                    <div class="icono-servicio">
-                        <i class="bi ${icono}"></i>
-                    </div>
-                    <div class="card-body cuerpo-servicio">
-                        <h3 class="titulo-servicio">${servicio.nombre}</h3>
-                        <p class="descripcion-servicio">${servicio.descripcion}</p>
-                        <div class="pie-servicio">
-                            <div class="precio-servicio">
-                                ${precioFormateado}
-                                <small class="d-block">por sesión</small>
-                            </div>
-                            <a href="#reserva" class="boton-reservar">
-                                Reservar <i class="bi bi-arrow-right ms-1"></i>
-                            </a>
+    // Profesionales
+    listaProfesionales: document.getElementById('lista-profesionales'),
+    botonesFiltro: document.querySelectorAll('.filtro-btn'),
+    countBadge: document.getElementById('count-badge')
+};
+
+// ====================================
+// SERVICIOS - FUNCIONES DE RENDERIZADO
+// ====================================
+
+function crearTarjetaServicio(servicio) {
+    const icono = servicio.icono || 'bi-heart-pulse';
+
+    return `
+        <div class="col-12 col-md-6 col-lg-3 aparecer-suave">
+            <div class="card tarjeta-servicio">
+                <div class="icono-servicio">
+                    <i class="bi ${icono}"></i>
+                </div>
+                <div class="card-body cuerpo-servicio">
+                    <h3 class="titulo-servicio">${servicio.nombre}</h3>
+                    <p class="descripcion-servicio">${servicio.descripcion}</p>
+                    <div class="pie-servicio">
+                        <div class="precio-servicio">
+                            $${servicio.precio}
+                            <small class="d-block">por sesión</small>
                         </div>
+                        <a href="#reserva" class="boton-reservar">
+                            Reservar <i class="bi bi-arrow-right ms-1"></i>
+                        </a>
                     </div>
                 </div>
             </div>
-        `;
+        </div>
+    `;
+}
+
+function mostrarErrorServicios() {
+    elementos.mensajeCargando.classList.add('d-none');
+    elementos.mensajeError.classList.remove('d-none');
+    elementos.catalogoServicios.innerHTML = '';
+}
+
+function ocultarMensajesServicios() {
+    elementos.mensajeCargando.classList.add('d-none');
+    elementos.mensajeError.classList.add('d-none');
+}
+
+function agregarAnimacionEscalonada() {
+    const tarjetas = elementos.catalogoServicios.querySelectorAll('.aparecer-suave');
+    tarjetas.forEach((tarjeta, indice) => {
+        tarjeta.style.animationDelay = `${indice * 0.1}s`;
+    });
+}
+
+function renderizarServicios(servicios) {
+    if (!servicios || servicios.length === 0) {
+        mostrarErrorServicios();
+        return;
     }
 
-    /**
-     * Muestra un mensaje de error
-     */
-    function mostrarError() {
-        mensajeCargando.classList.add('d-none');
-        mensajeError.classList.remove('d-none');
-        contenedorCatalogo.innerHTML = '';
+    ocultarMensajesServicios();
+
+    const htmlServicios = servicios
+        .map(servicio => crearTarjetaServicio(servicio))
+        .join('');
+
+    elementos.catalogoServicios.innerHTML = htmlServicios;
+    agregarAnimacionEscalonada();
+}
+
+function cargarServicios() {
+    if (!elementos.catalogoServicios) {
+        console.error('No se encontró el contenedor del catálogo');
+        return;
     }
 
-    /**
-     * Oculta los mensajes de estado
-     */
-    function ocultarMensajes() {
-        mensajeCargando.classList.add('d-none');
-        mensajeError.classList.add('d-none');
+    setTimeout(() => {
+        const servicios = obtenerServicios();
+        renderizarServicios(servicios);
+    }, 500);
+}
+
+// ====================================
+// PROFESIONALES - FUNCIONES DE RENDERIZADO
+// ====================================
+
+function crearTarjetaProfesional(prof) {
+    const serviciosHTML = prof.servicios
+        .map(s => `<span class="servicio-tag">${s}</span>`)
+        .join('');
+
+    return `
+        <div class="col-12 col-sm-6 col-lg-3 mb-4">
+            <div class="card card-profesional h-100 shadow-sm">
+                <div class="card-img-wrapper">
+                    <img
+                        src="${prof.foto}"
+                        class="card-img-top prof-foto"
+                        alt="Foto de ${prof.nombre}"
+                        onerror="this.src='img/avatar-default.png'; this.onerror=null;"
+                    />
+                    <span class="badge-tipo ${getBadgeClass(prof.tipo)}">
+                        ${prof.tipo}
+                    </span>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title prof-nombre">${prof.nombre}</h5>
+                    <p class="prof-especialidad">${prof.especialidad}</p>
+                    <p class="prof-bio">"${prof.bio}"</p>
+                    <p class="prof-servicios-label">Servicios:</p>
+                    <div class="servicios-container">
+                        ${serviciosHTML}
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function actualizarContadorProfesionales(cantidad) {
+    if (elementos.countBadge) {
+        elementos.countBadge.textContent = `${cantidad} profesionales`;
+    }
+}
+
+function renderizarProfesionales(profesionales) {
+    if (!elementos.listaProfesionales) return;
+
+    if (profesionales.length === 0) {
+        elementos.listaProfesionales.innerHTML = `
+            <div class="col-12 text-center">
+                <p class="text-muted">No hay profesionales disponibles en este momento.</p>
+            </div>`;
+        actualizarContadorProfesionales(0);
+        return;
     }
 
-    /**
-     * Renderiza todos los servicios en el catálogo
-     * @param {Array} servicios - Array de servicios a renderizar
-     */
-    function renderizarServicios(servicios) {
-        // Validar que haya servicios
-        if (!servicios || servicios.length === 0) {
-            mostrarError();
-            console.warn('⚠️ No hay servicios disponibles para mostrar');
-            return;
-        }
+    const html = profesionales
+        .map(prof => crearTarjetaProfesional(prof))
+        .join('');
 
-        // Ocultar mensajes de estado
-        ocultarMensajes();
+    elementos.listaProfesionales.innerHTML = html;
+    actualizarContadorProfesionales(profesionales.length);
+}
 
-        // Generar HTML para todas las tarjetas
-        const htmlServicios = servicios
-            .map(servicio => crearTarjetaServicio(servicio))
-            .join('');
+function cargarProfesionales() {
+    const profesionales = obtenerProfesionales();
+    renderizarProfesionales(profesionales);
+}
 
-        // Insertar en el contenedor
-        contenedorCatalogo.innerHTML = htmlServicios;
+// ====================================
+// EVENT LISTENERS
+// ====================================
 
-        // Log de éxito
-        console.log(`✅ ${servicios.length} servicios renderizados correctamente`);
+function manejarCambioFiltro(botonClickeado) {
+    elementos.botonesFiltro.forEach(boton =>
+        boton.classList.remove('active')
+    );
+    botonClickeado.classList.add('active');
 
-        // Agregar animación escalonada a las tarjetas
-        agregarAnimacionEscalonada();
-    }
+    const tipo = botonClickeado.dataset.tipo;
+    const profesionalesFiltrados = filtrarProfesionalesPorTipo(tipo);
+    renderizarProfesionales(profesionalesFiltrados);
+}
 
-    /**
-     * Agrega animación escalonada a las tarjetas
-     */
-    function agregarAnimacionEscalonada() {
-        const tarjetas = contenedorCatalogo.querySelectorAll('.aparecer-suave');
-        tarjetas.forEach((tarjeta, indice) => {
-            tarjeta.style.animationDelay = `${indice * 0.1}s`;
+function inicializarEventListeners() {
+    elementos.botonesFiltro.forEach(boton => {
+        boton.addEventListener('click', function () {
+            manejarCambioFiltro(this);
         });
-    }
+    });
+}
 
-    /**
-     * Carga los servicios desde LocalStorage
-     */
-    function cargarServicios() {
-        try {
-            console.log('📋 Cargando servicios desde LocalStorage...');
+// ====================================
+// INICIALIZACIÓN
+// ====================================
 
-            // Simular un pequeño delay para mostrar el loading
-            setTimeout(() => {
-                // Obtener servicios del LocalStorage
-                const serviciosTexto = localStorage.getItem('servicios');
-                
-                if (!serviciosTexto) {
-                    console.error('❌ No se encontraron servicios en LocalStorage');
-                    mostrarError();
-                    return;
-                }
+function inicializar() {
+    cargarServicios();
+    cargarProfesionales();
+    inicializarEventListeners();
+}
 
-                // Parsear JSON
-                const servicios = JSON.parse(serviciosTexto);
-
-                // Validar estructura de datos
-                if (!Array.isArray(servicios)) {
-                    console.error('❌ Los datos de servicios no son un array válido');
-                    mostrarError();
-                    return;
-                }
-
-                // Renderizar servicios
-                renderizarServicios(servicios);
-
-            }, 500); // Delay de 500ms para UX
-
-        } catch (error) {
-            console.error('❌ Error al cargar servicios:', error);
-            mostrarError();
-        }
-    }
-
-    /**
-     * Inicialización cuando el DOM está listo
-     */
-    function inicializar() {
-        // Verificar que los elementos del DOM existan
-        if (!contenedorCatalogo) {
-            console.error('❌ No se encontró el contenedor del catálogo');
-            return;
-        }
-
-        // Cargar servicios
-        cargarServicios();
-
-        console.log('🐾 Módulo de Servicios inicializado correctamente');
-    }
-
-    /**
-     * Exponer función de carga para uso externo
-     */
-    window.cargarServicios = cargarServicios;
-
-    /**
-     * Función de utilidad para debugging
-     * Muestra los servicios en consola
-     */
-    window.verServicios = function() {
-        try {
-            const servicios = JSON.parse(localStorage.getItem('servicios'));
-            console.table(servicios);
-            return servicios;
-        } catch (error) {
-            console.error('Error al mostrar servicios:', error);
-            return null;
-        }
-    };
-
-    // Inicializar cuando el DOM esté completamente cargado
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', inicializar);
-    } else {
-        // DOM ya está listo
-        inicializar();
-    }
-
-})();
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', inicializar);
+} else {
+    inicializar();
+}
