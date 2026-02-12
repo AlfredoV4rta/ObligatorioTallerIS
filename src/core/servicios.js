@@ -1,9 +1,3 @@
-/**
- * Módulo Core - Servicios
- * Responsabilidad: Gestión de datos de servicios (CRUD y lógica de negocio)
- * NO interactúa con el DOM
- */
-
 const STORAGE_KEY_SERVICIOS = 'servicios';
 
 const serviciosIniciales = [

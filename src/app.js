@@ -1,9 +1,3 @@
-/**
- * Aplicación Principal - Veterinaria Huellas
- * Responsabilidad: SOLO interacción con el DOM y orquestación
- * NO maneja datos ni hace CRUD
- */
-
 import { obtenerServicios } from './core/servicios.js';
 import {
     obtenerProfesionales,

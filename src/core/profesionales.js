@@ -1,9 +1,3 @@
-/**
- * Módulo Core - Profesionales
- * Responsabilidad: Gestión de datos de profesionales (CRUD y lógica de negocio)
- * NO interactúa con el DOM
- */
-
 const STORAGE_KEY_PROFESIONALES = "vh_profesionales";
 
 const profesionalesIniciales = [

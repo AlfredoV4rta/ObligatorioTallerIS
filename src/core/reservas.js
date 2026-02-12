@@ -1,9 +1,3 @@
-/**
- * Módulo Core - Reservas
- * Responsabilidad: Gestión de datos de reservas (CRUD y lógica de negocio)
- * NO interactúa con el DOM
- */
-
 const STORAGE_KEY_RESERVAS = "vh_reservas";
 
 function inicializarReservas() {
