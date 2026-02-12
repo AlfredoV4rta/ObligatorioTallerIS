@@ -1,9 +1,3 @@
-import { obtenerServicios } from './core/servicios.js';
-import {
-    obtenerProfesionales,
-    filtrarProfesionalesPorTipo,
-    getBadgeClass
-} from './core/profesionales.js';
 
 // ====================================
 // ELEMENTOS DEL DOM

@@ -52,8 +52,3 @@ function obtenerServicioPorId(id) {
     const servicios = obtenerServicios();
     return servicios.find(servicio => servicio.id === id) || null;
 }
-
-export {
-    obtenerServicios,
-    obtenerServicioPorId
-};

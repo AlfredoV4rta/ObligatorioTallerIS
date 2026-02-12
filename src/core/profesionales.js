@@ -70,9 +70,3 @@ function getBadgeClass(tipo) {
   return t.includes("veterinari") ? "badge-vet" : "badge-estilista";
 }
 
-export {
-  obtenerProfesionales,
-  obtenerProfesionalPorId,
-  filtrarProfesionalesPorTipo,
-  getBadgeClass
-};
