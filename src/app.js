@@ -26,7 +26,6 @@ function login() {
     let username = document.querySelector("#username").value;
     let password = document.querySelector("#password").value;
     let mensaje = "";
-    let estado = "";
 
     if (username === "" || password === "") {
         mensaje = "Complete todos los campos"
@@ -34,13 +33,12 @@ function login() {
         return
     }
 
-    if (mensaje === "") {
-        estado = validarUsuario(username, password).estado;
-        if (estado === "") {
-            window.location.href = "gestionTurnos.html";
-        } else {
-            alert("Usuario o contraseña incorrectos");
-        }
+    let validacion = validarUsuario(username, password);
+
+    if (validacion.valido) {
+        window.location.href = "gestionTurnos.html";
+    } else {
+        alert(validacion.estado);
     }
 }
 
@@ -221,7 +219,9 @@ function inicializarEventListenersProf() {
 }
 
 function inicializarEventListenerUsuarios() {
-    elementos.botonLogin.addEventListener("click", login);
+    if (elementos.botonLogin) {
+        elementos.botonLogin.addEventListener("click", login);
+    }
 }
 
 // ====================================
@@ -229,10 +229,22 @@ function inicializarEventListenerUsuarios() {
 // ====================================
 
 function inicializar() {
-    cargarServicios();
-    cargarProfesionales();
+    // ✅ Solo ejecutar si los elementos existen
+    if (elementos.catalogoServicios) {
+        cargarServicios();
+    }
+    
+    if (elementos.listaProfesionales) {
+        cargarProfesionales();
+    }
+    
+    // Siempre cargar usuarios (necesario para login)
     cargarUsuarios();
-    inicializarEventListenersProf();
+    
+    if (elementos.botonesFiltro.length > 0) {
+        inicializarEventListenersProf();
+    }
+    
     inicializarEventListenerUsuarios();
 }
 

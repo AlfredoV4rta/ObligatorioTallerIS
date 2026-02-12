@@ -46,13 +46,14 @@ function obtenerUsuarioPorUsername(uName) {
 function validarUsuario(pUserName, pPassword) {
     let mensaje = "";
     let usuario = obtenerUsuarioPorUsername(pUserName);
+    let validacion = usuario !== null && usuario.password === pPassword;
 
-    if(usuario === null || usuario.password !== pPassword) {
+    if(!validacion) {
         mensaje = "Credenciales invalidas";
     }
 
     return {
-        valido : existe,
+        valido : validacion,
         estado : mensaje
     }
 }
