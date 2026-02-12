@@ -12,8 +12,37 @@ const elementos = {
     // Profesionales
     listaProfesionales: document.getElementById('lista-profesionales'),
     botonesFiltro: document.querySelectorAll('.filtro-btn'),
-    countBadge: document.getElementById('count-badge')
+    countBadge: document.getElementById('count-badge'),
+
+    //Usuarios
+    botonLogin: document.querySelector("#btnLogin")
 };
+
+// ====================================
+// LOGIN
+// ====================================
+
+function login() {
+    let username = document.querySelector("#username").value;
+    let password = document.querySelector("#password").value;
+    let mensaje = "";
+    let estado = "";
+
+    if (username === "" || password === "") {
+        mensaje = "Complete todos los campos"
+        alert(mensaje);
+        return
+    }
+
+    if (mensaje === "") {
+        estado = validarUsuario(username, password).estado;
+        if (estado === "") {
+            window.location.href = "gestionTurnos.html";
+        } else {
+            alert("Usuario o contraseña incorrectos");
+        }
+    }
+}
 
 // ====================================
 // SERVICIOS - FUNCIONES DE RENDERIZADO
@@ -161,6 +190,14 @@ function cargarProfesionales() {
 }
 
 // ====================================
+// USUARIOS - CARGA LOCALSTORAGE
+// ====================================
+
+function cargarUsuarios() {
+    obtenerUsuarios();
+}
+
+// ====================================
 // EVENT LISTENERS
 // ====================================
 
@@ -175,12 +212,16 @@ function manejarCambioFiltro(botonClickeado) {
     renderizarProfesionales(profesionalesFiltrados);
 }
 
-function inicializarEventListeners() {
+function inicializarEventListenersProf() {
     elementos.botonesFiltro.forEach(boton => {
         boton.addEventListener('click', function () {
             manejarCambioFiltro(this);
         });
     });
+}
+
+function inicializarEventListenerUsuarios() {
+    elementos.botonLogin.addEventListener("click", login);
 }
 
 // ====================================
@@ -190,7 +231,9 @@ function inicializarEventListeners() {
 function inicializar() {
     cargarServicios();
     cargarProfesionales();
-    inicializarEventListeners();
+    cargarUsuarios();
+    inicializarEventListenersProf();
+    inicializarEventListenerUsuarios();
 }
 
 if (document.readyState === 'loading') {

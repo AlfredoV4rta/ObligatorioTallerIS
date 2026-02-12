@@ -348,15 +348,3 @@ function obtenerHorariosDisponibles(tipoServicio, fecha, profesionalId) {
 
     return horariosDisponibles;
 }
-
-export {
-    obtenerReservas,
-    obtenerReservaPorId,
-    crearReserva,
-    eliminarReserva,
-    obtenerReservasOrdenadas,
-    obtenerReservasPorFecha,
-    obtenerHorariosDisponibles,
-    obtenerDuracionServicio,
-    obtenerProfesionalesDisponibles
-};
