@@ -5,7 +5,7 @@ const DURACION_SERVICIOS = {
     "Consulta General": 30,
     "Vacunación y Desparasitación": 15,
     "Castración": 120,
-    "Baño y Estética": 60
+    "Estética y baño": 60
 };
 
 // Horarios de atención (9:00 a 18:00)
@@ -120,7 +120,13 @@ function obtenerProfesionalesDisponibles(tipoServicio, fecha, hora) {
             duracion
         );
 
-        if (estaDisponible === true) {
+        if (estaDisponible === true && tipoServicio !== "Estética y baño") {
+            if (profesional.servicios.includes(tipoServicio)) {
+                disponibles.push(profesional);
+            }
+        }
+
+        if (estaDisponible === true && tipoServicio === "Estética y baño") {
             disponibles.push(profesional);
         }
     }

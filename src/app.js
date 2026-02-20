@@ -85,7 +85,7 @@ function cargarProfesionalesEnSelect() {
 
     selectProfesional.disabled = false;
 
-    if (servicio !== 'Baño y Estética') {
+    if (servicio !== 'Estética y baño') {
         for (let i = 0; i < profesionales.length - 1; i++) {
             opciones += '<option value="' + profesionales[i].id + '">' + profesionales[i].nombre + ' - ' + profesionales[i].tipo + '</option>';
         }

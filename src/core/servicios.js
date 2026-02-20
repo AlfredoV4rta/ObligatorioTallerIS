@@ -24,7 +24,7 @@ const serviciosIniciales = [
     },
     {
         id: 4,
-        nombre: 'Baño y Estética',
+        nombre: 'Estética y baño',
         descripcion: 'Servicio completo de higiene y embellecimiento. Incluye baño medicado, corte de pelo según raza, corte de uñas, limpieza de oídos y glándulas. Perfumado y deslanado.',
         precio: 1500,
         icono: 'bi-scissors'
