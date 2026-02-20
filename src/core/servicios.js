@@ -36,6 +36,7 @@ function inicializarServicios() {
     if (!serviciosGuardados) {
         localStorage.setItem(STORAGE_KEY_SERVICIOS, JSON.stringify(serviciosIniciales));
     }
+    console.log("Servicios inicializados")
 }
 
 function obtenerServicios() {

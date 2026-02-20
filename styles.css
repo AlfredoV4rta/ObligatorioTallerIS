@@ -498,3 +498,33 @@ header nav {
     font-size: 1.6rem;
   }
 }
+
+/* ==================== Reservar Turno ==================== */
+#reservar {
+  background-color: #f8f9fa;
+}
+
+.btn-reservar-form {
+  background: var(--verde);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: var(--transicion);
+}
+
+.btn-reservar-form:hover {
+  background: var(--verde-oscuro);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(80, 189, 167, 0.3);
+}
+
+#reservar .form-control:focus,
+#reservar .form-select:focus {
+  border-color: var(--verde);
+  box-shadow: 0 0 0 0.2rem rgba(80, 189, 167, 0.25);
+}
+
+#reservar .card {
+  border: none;
+}

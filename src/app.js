@@ -43,6 +43,191 @@ function login() {
 }
 
 // ====================================
+// RESERVAS - FORMULARIO
+// ====================================
+
+function cargarServiciosEnSelect() {
+    const selectServicio = document.getElementById('tipoServicio');
+    if (!selectServicio) {
+        return;
+    }
+
+    const servicios = obtenerServicios();
+
+    let opciones = '<option value="">Selecciona un servicio</option>';
+
+    for (let i = 0; i < servicios.length; i++) {
+        opciones += '<option value="' + servicios[i].nombre + '">' + servicios[i].nombre + ' - $' + servicios[i].precio + '</option>';
+    }
+
+    selectServicio.innerHTML = opciones;
+}
+
+function cargarProfesionalesEnSelect() {
+    const selectProfesional = document.getElementById('profesional');
+    const servicioSeleccionado = document.getElementById('tipoServicio');
+
+    let servicio = servicioSeleccionado.value;
+
+    if (!selectProfesional) {
+        return;
+    }
+
+    const profesionales = obtenerProfesionales();
+
+    let opciones = '<option value="">Asignación automática</option>';
+
+    if (servicio === '') {
+        selectProfesional.disabled = true;
+        selectProfesional.innerHTML = '<option value="">Primero selecciona un servicio</option>';
+        return;
+    }
+
+    selectProfesional.disabled = false;
+
+    if (servicio !== 'Baño y Estética') {
+        for (let i = 0; i < profesionales.length - 1; i++) {
+            opciones += '<option value="' + profesionales[i].id + '">' + profesionales[i].nombre + ' - ' + profesionales[i].tipo + '</option>';
+        }
+    } else {
+        for (let i = 0; i < profesionales.length; i++) {
+            opciones += '<option value="' + profesionales[i].id + '">' + profesionales[i].nombre + ' - ' + profesionales[i].tipo + '</option>';
+        }
+    }
+
+    selectProfesional.innerHTML = opciones;
+}
+
+function obtenerFechaMinima() {
+    const hoy = new Date();
+    hoy.setDate(hoy.getDate() + 1);
+    return hoy.toISOString().split('T')[0];
+}
+
+function cargarHorariosDisponibles() {
+    const selectServicio = document.getElementById('tipoServicio');
+    const inputFecha = document.getElementById('fecha');
+    const selectHora = document.getElementById('hora');
+    const selectProfesional = document.getElementById('profesional');
+
+    const servicio = selectServicio.value;
+    const fecha = inputFecha.value;
+
+    if (servicio === '' || fecha === '') {
+        selectHora.disabled = true;
+        selectHora.innerHTML = '<option value="">Primero selecciona un servicio y fecha</option>';
+        return;
+    }
+
+    const validacionFecha = esFechaValida(fecha);
+    if (validacionFecha.valido === false) {
+        alert(validacionFecha.mensaje);
+        inputFecha.value = '';
+        return;
+    }
+
+    const valorProfesional = selectProfesional.value;
+    let profesionalId = null;
+
+    if (valorProfesional !== '') {
+        profesionalId = parseInt(valorProfesional);
+    }
+
+    const horarios = obtenerHorariosDisponibles(servicio, fecha, profesionalId);
+
+    selectHora.disabled = false;
+
+    let opciones = '<option value="">Selecciona un horario</option>';
+
+    if (horarios.length === 0) {
+        selectHora.innerHTML = '<option value="">No hay horarios disponibles</option>';
+        selectHora.disabled = true;
+        return;
+    }
+
+    for (let i = 0; i < horarios.length; i++) {
+        opciones += '<option value="' + horarios[i] + '">' + horarios[i] + '</option>';
+    }
+
+    selectHora.innerHTML = opciones;
+}
+
+function manejarEnvioReserva(e) {
+    e.preventDefault();
+
+    const nombreDueno = document.getElementById('nombreDueno').value.trim();
+    const nombreMascota = document.getElementById('nombreMascota').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const tipoServicio = document.getElementById('tipoServicio').value;
+    const fecha = document.getElementById('fecha').value;
+    const hora = document.getElementById('hora').value;
+    const valorProfesional = document.getElementById('profesional').value;
+
+    let profesionalId = null;
+    if (valorProfesional !== '') {
+        profesionalId = parseInt(valorProfesional);
+    }
+
+    const datos = {
+        nombre_dueno: nombreDueno,
+        nombre_mascota: nombreMascota,
+        telefono: telefono,
+        email: email,
+        tipo_servicio: tipoServicio,
+        fecha: fecha,
+        hora: hora,
+        profesional_id: profesionalId
+    };
+
+    const resultado = crearReserva(datos);
+
+    if (resultado.exito === true) {
+        alert('¡Reserva confirmada exitosamente!');
+        document.getElementById('formReserva').reset();
+
+        const selectHora = document.getElementById('hora');
+        selectHora.disabled = true;
+        selectHora.innerHTML = '<option value="">Primero selecciona un servicio y fecha</option>';
+    } else {
+        let mensajeError = 'Error al crear la reserva:\n';
+        for (let i = 0; i < resultado.errores.length; i++) {
+            mensajeError += resultado.errores[i] + '\n';
+        }
+        alert(mensajeError);
+    }
+}
+
+function inicializarFormularioReservas() {
+    const form = document.getElementById('formReserva');
+    if (!form) {
+        return;
+    }
+
+    cargarServiciosEnSelect();
+    cargarProfesionalesEnSelect();
+
+    const inputFecha = document.getElementById('fecha');
+    inputFecha.min = obtenerFechaMinima();
+
+    const selectServicio = document.getElementById('tipoServicio');
+    selectServicio.addEventListener('change', function () {
+        cargarHorariosDisponibles();
+        cargarProfesionalesEnSelect();
+    });
+
+    const selectFecha = document.getElementById('fecha');
+    selectFecha.addEventListener('change', cargarHorariosDisponibles);
+
+    const selectProfesional = document.getElementById('profesional');
+    selectProfesional.addEventListener('change', cargarHorariosDisponibles);
+
+
+
+    form.addEventListener('submit', manejarEnvioReserva);
+}
+
+// ====================================
 // SERVICIOS - FUNCIONES DE RENDERIZADO
 // ====================================
 
@@ -63,7 +248,7 @@ function crearTarjetaServicio(servicio) {
                             $${servicio.precio}
                             <small class="d-block">por sesión</small>
                         </div>
-                        <a href="#reserva" class="boton-reservar">
+                        <a href="#reservar" class="boton-reservar">
                             Reservar <i class="bi bi-arrow-right ms-1"></i>
                         </a>
                     </div>
@@ -229,23 +414,24 @@ function inicializarEventListenerUsuarios() {
 // ====================================
 
 function inicializar() {
-    // ✅ Solo ejecutar si los elementos existen
+    //Solo ejecutar si los elementos existen
     if (elementos.catalogoServicios) {
         cargarServicios();
     }
-    
+
     if (elementos.listaProfesionales) {
         cargarProfesionales();
     }
-    
+
     // Siempre cargar usuarios (necesario para login)
     cargarUsuarios();
-    
+
     if (elementos.botonesFiltro.length > 0) {
         inicializarEventListenersProf();
     }
-    
+
     inicializarEventListenerUsuarios();
+    inicializarFormularioReservas();
 }
 
 if (document.readyState === 'loading') {

@@ -128,23 +128,84 @@ function obtenerProfesionalesDisponibles(tipoServicio, fecha, hora) {
     return disponibles;
 }
 
-/**
- * Valida los datos de una reserva
- */
+function validarTelefono(telefono) {
+    if (telefono.length !== 9) {
+        return false;
+    }
+    if (telefono.charAt(0) !== '0' || telefono.charAt(1) !== '9') {
+        return false;
+    }
+    for (let i = 0; i < telefono.length; i++) {
+        if (telefono.charAt(i) < '0' || telefono.charAt(i) > '9') {
+            return false;
+        }
+    }
+    return true;
+}
+
+function validarEmail(email) {
+    let tieneArroba = false;
+    let posicionArroba = -1;
+
+    for (let i = 0; i < email.length; i++) {
+        if (email.charAt(i) === '@') {
+            tieneArroba = true;
+            posicionArroba = i;
+            break;
+        }
+    }
+
+    if (tieneArroba === false) {
+        return false;
+    }
+
+    if (posicionArroba === 0 || posicionArroba === email.length - 1) {
+        return false;
+    }
+
+    if (email.length < 4) {
+        return false;
+    }
+
+    if (email.charAt(email.length - 4) !== '.' ||
+        email.charAt(email.length - 3) !== 'c' ||
+        email.charAt(email.length - 2) !== 'o' ||
+        email.charAt(email.length - 1) !== 'm') {
+        return false;
+    }
+
+    return true;
+}
+
+function esFechaValida(fecha) {
+    const fechaSeleccionada = new Date(fecha + 'T00:00:00');
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    if (fechaSeleccionada < hoy) {
+        return { valido: false, mensaje: "No puedes seleccionar una fecha pasada" };
+    }
+
+    const diaSemana = fechaSeleccionada.getDay();
+
+    if (diaSemana === 0 || diaSemana === 6) {
+        return { valido: false, mensaje: "Solo puedes reservar de lunes a viernes" };
+    }
+
+    return { valido: true };
+}
+
 function validarDatosReserva(datos) {
     const errores = [];
 
-    // Validar nombre del dueño
     if (datos.nombre_dueno === undefined || datos.nombre_dueno === null || datos.nombre_dueno.trim() === "") {
         errores.push("El nombre del dueño es obligatorio");
     }
 
-    // Validar nombre de la mascota
     if (datos.nombre_mascota === undefined || datos.nombre_mascota === null || datos.nombre_mascota.trim() === "") {
         errores.push("El nombre de la mascota es obligatorio");
     }
 
-    // Validar teléfono o email (al menos uno)
     const tieneTelefono = datos.telefono !== undefined && datos.telefono !== null && datos.telefono.trim() !== "";
     const tieneEmail = datos.email !== undefined && datos.email !== null && datos.email.trim() !== "";
 
@@ -152,17 +213,31 @@ function validarDatosReserva(datos) {
         errores.push("Debe proporcionar al menos un teléfono o email");
     }
 
-    // Validar tipo de servicio
+    if (tieneTelefono === true) {
+        if (validarTelefono(datos.telefono) === false) {
+            errores.push("El teléfono debe tener 9 dígitos y comenzar con 09");
+        }
+    }
+
+    if (tieneEmail === true) {
+        if (validarEmail(datos.email) === false) {
+            errores.push("El email debe contener @ y terminar en .com");
+        }
+    }
+
     if (datos.tipo_servicio === undefined || datos.tipo_servicio === null || datos.tipo_servicio.trim() === "") {
         errores.push("Debe seleccionar un tipo de servicio");
     }
 
-    // Validar fecha
     if (datos.fecha === undefined || datos.fecha === null || datos.fecha.trim() === "") {
         errores.push("La fecha es obligatoria");
+    } else {
+        const validacionFecha = esFechaValida(datos.fecha);
+        if (validacionFecha.valido === false) {
+            errores.push(validacionFecha.mensaje);
+        }
     }
 
-    // Validar hora
     if (datos.hora === undefined || datos.hora === null || datos.hora.trim() === "") {
         errores.push("La hora es obligatoria");
     }

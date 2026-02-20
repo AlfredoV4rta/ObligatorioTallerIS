@@ -103,9 +103,7 @@
             </div>
 
             <!-- Catálogo de Servicios -->
-            <div id="catalogoServicios" class="row g-4">
-                <!-- Los servicios se cargarán dinámicamente aquí -->
-            </div>
+            <div id="catalogoServicios" class="row g-4"></div>
         </div>
     </section>
 
@@ -135,6 +133,114 @@
             </div>
         </section>
     </main>
+
+    <!-- Sección Reservar Turno -->
+    <section id="reservar" class="py-5">
+        <div class="container">
+            <!-- Encabezado -->
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Reservar Turno</h2>
+                <p class="lead text-muted">Agenda tu cita de forma rápida y sencilla</p>
+            </div>
+
+            <!-- Formulario -->
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8">
+                    <div class="card shadow-sm border-0 rounded-4">
+                        <div class="card-body p-4 p-sm-5">
+                            <form id="formReserva">
+
+                                <!-- Nombre del Dueño -->
+                                <div class="mb-3">
+                                    <label for="nombreDueno" class="form-label fw-semibold">
+                                        Nombre del Dueño <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreDueno"
+                                        placeholder="Ingresa tu nombre completo">
+                                </div>
+
+                                <!-- Nombre de la Mascota -->
+                                <div class="mb-3">
+                                    <label for="nombreMascota" class="form-label fw-semibold">
+                                        Nombre de la Mascota <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control" id="nombreMascota"
+                                        placeholder="Ingresa el nombre de tu mascota">
+                                </div>
+
+                                <!-- Teléfono y Email -->
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <label for="telefono" class="form-label fw-semibold">
+                                            Teléfono
+                                        </label>
+                                        <input type="text" class="form-control" id="telefono" placeholder="09XXXXXXX"
+                                            maxlength="9">
+                                        <small class="text-muted">Formato: 09XXXXXXX (9 dígitos)</small>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <label for="email" class="form-label fw-semibold">
+                                            Email
+                                        </label>
+                                        <input type="text" class="form-control" id="email"
+                                            placeholder="ejemplo@email.com">
+                                        <small class="text-muted">Debe contener @ y terminar en .com</small>
+                                    </div>
+                                </div>
+                                <small class="text-danger d-block mb-3">* Debes completar al menos teléfono o
+                                    email</small>
+
+                                <!-- Servicio -->
+                                <div class="mb-3">
+                                    <label for="tipoServicio" class="form-label fw-semibold">
+                                        Tipo de Servicio <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="tipoServicio">
+                                        <option value="">Selecciona un servicio</option>
+                                    </select>
+                                </div>
+
+                                <!-- Fecha -->
+                                <div class="mb-3">
+                                    <label for="fecha" class="form-label fw-semibold">
+                                        Fecha <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="date" class="form-control" id="fecha">
+                                    <small class="text-muted">Solo días hábiles (lunes a viernes)</small>
+                                </div>
+                                <!-- Profesional (Opcional) -->
+                                <div class="mb-4">
+                                    <label for="profesional" class="form-label fw-semibold">
+                                        Profesional (Opcional)
+                                    </label>
+                                    <select class="form-select" id="profesional">
+                                        <option value="">Asignación automática</option>
+                                    </select>
+                                    <small class="text-muted">Si no seleccionas, se asignará automáticamente</small>
+                                </div>
+
+                                <!-- Hora -->
+                                <div class="mb-3">
+                                    <label for="hora" class="form-label fw-semibold">
+                                        Hora <span class="text-danger">*</span>
+                                    </label>
+                                    <select class="form-select" id="hora" disabled>
+                                        <option value="">Primero selecciona un servicio y fecha</option>
+                                    </select>
+                                </div>
+
+                                <!-- Botón Enviar -->
+                                <button type="submit" class="btn btn-reservar-form w-100 py-3">
+                                    <i class="bi bi-calendar-check me-2"></i>
+                                    Confirmar Reserva
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!--Contacto-->
     <section id="contacto">

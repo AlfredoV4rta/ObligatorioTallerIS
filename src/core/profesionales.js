@@ -8,7 +8,7 @@ const profesionalesIniciales = [
     foto: "img/mujer1.png",
     especialidad: "Clínica general y medicina preventiva (vacunas, controles)",
     bio: "Me enfoco en prevenir problemas antes de que aparezcan y en explicar todo de forma clara.",
-    servicios: ["Clínica general", "Vacunas", "Controles preventivos", "Medicina preventiva"],
+    servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Baño y Estética"],
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const profesionalesIniciales = [
     foto: "img/hombre1.png",
     especialidad: "Cirugía menor (castraciones) y urgencias",
     bio: "Trabajo con procedimientos seguros y un seguimiento postoperatorio cercano.",
-    servicios: ["Cirugía menor", "Castraciones", "Urgencias", "Postoperatorio"],
+    servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Baño y Estética"],
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const profesionalesIniciales = [
     foto: "img/mujer2.png",
     especialidad: "Baño, secado, corte higiénico y manejo de mascotas nerviosas",
     bio: "Prioridad: que la experiencia sea tranquila y sin estrés.",
-    servicios: ["Baño y secado", "Corte higiénico", "Manejo amable", "Mascotas nerviosas"],
+    servicios: ["Baño y Estética"],
   },
 ];
 
