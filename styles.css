@@ -567,3 +567,41 @@ header nav {
   font-size: 0.9rem;
   font-weight: 600;
 }
+/* ==================== Galería ==================== */
+
+#galeria {
+  background-color: #ffffff;
+}
+
+.galeria-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radio-borde);
+  height: 280px;
+  box-shadow: var(--sombra-caja);
+}
+
+.galeria-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.galeria-item:hover .galeria-img {
+  transform: scale(1.07);
+}
+
+@media (max-width: 767px) {
+  .galeria-item {
+    height: 220px;
+  }
+}
+
+@media (max-width: 575px) {
+  .galeria-item {
+    height: 200px;
+  }
+}
