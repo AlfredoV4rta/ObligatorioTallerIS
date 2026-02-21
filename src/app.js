@@ -43,6 +43,105 @@ function login() {
 }
 
 // ====================================
+// GESTIÓN TURNOS - ADMIN
+// ====================================
+
+function crearTarjetaReserva(reserva) {
+    const profesional = obtenerProfesionalPorId(reserva.profesional_id);
+    const nombreProfesional = profesional ? profesional.nombre : 'No asignado';
+
+    const telefono = reserva.telefono !== '' ? reserva.telefono : '-';
+    const email = reserva.email !== '' ? reserva.email : '-';
+
+    return `
+        <div class="col-12 col-lg-6">
+            <div class="card h-100 shadow-sm border-0 rounded-4 card-reserva">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h5 class="card-title mb-1">
+                                <i class="bi bi-person-fill text-verde me-2"></i>${reserva.nombre_dueno}
+                            </h5>
+                            <p class="text-muted mb-0"><small>Mascota: ${reserva.nombre_mascota}</small></p>
+                        </div>
+                        <span class="badge bg-success">Confirmada</span>
+                    </div>
+                    <div class="mb-3">
+                        <div class="info-item mb-2">
+                            <i class="bi bi-calendar-event text-verde me-2"></i>
+                            <strong>Fecha:</strong> ${reserva.fecha}
+                        </div>
+                        <div class="info-item mb-2">
+                            <i class="bi bi-clock text-verde me-2"></i>
+                            <strong>Hora:</strong> ${reserva.hora} (${reserva.duracion_minutos} min)
+                        </div>
+                        <div class="info-item mb-2">
+                            <i class="bi bi-scissors text-verde me-2"></i>
+                            <strong>Servicio:</strong> ${reserva.tipo_servicio}
+                        </div>
+                        <div class="info-item mb-2">
+                            <i class="bi bi-person-badge text-verde me-2"></i>
+                            <strong>Profesional:</strong> ${nombreProfesional}
+                        </div>
+                        <div class="info-item mb-2">
+                            <i class="bi bi-telephone text-verde me-2"></i>
+                            <strong>Teléfono:</strong> ${telefono}
+                        </div>
+                        <div class="info-item">
+                            <i class="bi bi-envelope text-verde me-2"></i>
+                            <strong>Email:</strong> ${email}
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-danger flex-grow-1" onclick="manejarCancelarReserva(${reserva.id})">
+                            <i class="bi bi-trash me-2"></i>Cancelar Turno
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+
+function cargarReservasAdmin() {
+    const listaReservas = document.getElementById('listaReservas');
+    const mensajeSinReservas = document.getElementById('mensajeSinReservas');
+
+    if (!listaReservas) {
+        return;
+    }
+
+    const reservas = obtenerReservasOrdenadas();
+
+    if (reservas.length === 0) {
+        listaReservas.innerHTML = '';
+        mensajeSinReservas.classList.remove('d-none');
+        return;
+    }
+
+    mensajeSinReservas.classList.add('d-none');
+
+    let html = '';
+    for (let i = 0; i < reservas.length; i++) {
+        html += crearTarjetaReserva(reservas[i]);
+    }
+
+    listaReservas.innerHTML = html;
+}
+
+function manejarCancelarReserva(id) {
+    const resultado = eliminarReserva(id);
+
+    if (resultado.exito === true) {
+        alert('Reserva cancelada exitosamente');
+        cargarReservasAdmin();
+    } else {
+        alert('Error al cancelar la reserva: ' + resultado.mensaje);
+    }
+}
+
+// ====================================
 // RESERVAS - FORMULARIO
 // ====================================
 
@@ -432,6 +531,7 @@ function inicializar() {
 
     inicializarEventListenerUsuarios();
     inicializarFormularioReservas();
+    cargarReservasAdmin();
 }
 
 if (document.readyState === 'loading') {

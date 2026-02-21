@@ -528,3 +528,42 @@ header nav {
 #reservar .card {
   border: none;
 }
+
+/* ==================== Gestión de Turnos ==================== */
+.text-verde {
+  color: var(--verde) !important;
+}
+
+.btn-verde {
+  background-color: var(--verde);
+  color: white;
+  border: none;
+  transition: var(--transicion);
+}
+
+.btn-verde:hover {
+  background-color: var(--verde-oscuro);
+  color: white;
+}
+
+.card-reserva {
+  transition: var(--transicion);
+}
+
+.card-reserva:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.bg-info-custom {
+  background-color: var(--verde);
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
