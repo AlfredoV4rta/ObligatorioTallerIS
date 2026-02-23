@@ -57,3 +57,6 @@ function validarUsuario(pUserName, pPassword) {
         estado : mensaje
     }
 }
+
+module.exports = {inicializarUsuarios, obtenerUsuarios, obtenerUsuarioPorUsername, validarUsuario};
+

@@ -70,3 +70,5 @@ function getBadgeClass(tipo) {
   return t.includes("veterinari") ? "badge-vet" : "badge-estilista";
 }
 
+module.exports = obtenerProfesionales;
+

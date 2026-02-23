@@ -141,11 +141,6 @@ function validarTelefono(telefono) {
     if (telefono.charAt(0) !== '0' || telefono.charAt(1) !== '9') {
         return false;
     }
-    for (let i = 0; i < telefono.length; i++) {
-        if (telefono.charAt(i) < '0' || telefono.charAt(i) > '9') {
-            return false;
-        }
-    }
     return true;
 }
 
@@ -429,3 +424,5 @@ function obtenerHorariosDisponibles(tipoServicio, fecha, profesionalId) {
 
     return horariosDisponibles;
 }
+
+module.exports = {validarEmail, validarTelefono, validarDatosReserva, crearReserva, obtenerProfesionalesDisponibles, verificarDisponibilidadProfesional, obtenerDuracionServicio};
