@@ -8,11 +8,15 @@ const DURACION_SERVICIOS = {
     "Estética y baño": 60
 };
 
-const obtenerProfesionales = require('./profesionales');
-
 // Horarios de atención (9:00 a 18:00)
 const HORA_INICIO = 9;
 const HORA_FIN = 18;
+
+obtenerProfesionales
+
+if (typeof module !== 'undefined' && module.exports) {
+    const obtenerProfesionales = require('./profesionales');
+}
 
 function inicializarReservas() {
     const reservasExistentes = localStorage.getItem(STORAGE_KEY_RESERVAS);
@@ -265,7 +269,7 @@ function crearReserva(datos) {
     const duracion = obtenerDuracionServicio(datos.tipo_servicio);
 
     // Si tiene profesional asignado, verificar disponibilidad
-    if (datos.profesional_id !== undefined && datos.profesional_id !== null) {
+    if (datos.profesional_id !== undefined && datos.profesional_id !== null && datos.profesional_id > 0) {
         const disponible = verificarDisponibilidadProfesional(
             datos.profesional_id,
             datos.fecha,
@@ -301,7 +305,6 @@ function crearReserva(datos) {
     const reservas = obtenerReservas();
 
     const nuevaReserva = {
-        id: Date.now(),
         nombre_dueno: datos.nombre_dueno.trim(),
         nombre_mascota: datos.nombre_mascota.trim(),
         telefono: datos.telefono === undefined || datos.telefono === null ? "" : datos.telefono.trim(),
@@ -311,7 +314,7 @@ function crearReserva(datos) {
         fecha: datos.fecha,
         hora: datos.hora,
         duracion_minutos: duracion,
-        fecha_creacion: new Date().toISOString(),
+        fecha_creacion: new Date().getDate(),
         estado: "confirmada"
     };
 
@@ -427,4 +430,6 @@ function obtenerHorariosDisponibles(tipoServicio, fecha, profesionalId) {
     return horariosDisponibles;
 }
 
-module.exports = { validarEmail, validarTelefono, validarDatosReserva, crearReserva, obtenerProfesionalesDisponibles, verificarDisponibilidadProfesional, obtenerDuracionServicio };
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {validarEmail, validarTelefono, validarDatosReserva, crearReserva, obtenerProfesionalesDisponibles, verificarDisponibilidadProfesional, obtenerDuracionServicio};
+}

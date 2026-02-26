@@ -58,5 +58,6 @@ function validarUsuario(pUserName, pPassword) {
     }
 }
 
-module.exports = {inicializarUsuarios, obtenerUsuarios, obtenerUsuarioPorUsername, validarUsuario};
-
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {inicializarUsuarios, obtenerUsuarios, obtenerUsuarioPorUsername, validarUsuario};
+}
