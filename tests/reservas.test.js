@@ -152,3 +152,61 @@ test('validarDatosReserva caso exito', () => {
     expect(validarDatosReserva(datos)).toStrictEqual([]);
 
 })
+
+// Pruebas para obtenerProfesionalesDisponibles
+
+test('obtenerProfesionalesDisponibles caso veterinarios', () => {
+
+    expect(obtenerProfesionalesDisponibles("Consulta General", "2026-03-12", "10:00")).toStrictEqual([{
+        id: 1,
+        nombre: "Dra. Sofía Pereira",
+        tipo: "Veterinaria",
+        foto: "img/mujer1.png",
+        especialidad: "Clínica general y medicina preventiva (vacunas, controles)",
+        bio: "Me enfoco en prevenir problemas antes de que aparezcan y en explicar todo de forma clara.",
+        servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Estética y baño"],
+    },
+    {
+        id: 2,
+        nombre: "Dr. Martín Rodríguez",
+        tipo: "Veterinario",
+        foto: "img/hombre1.png",
+        especialidad: "Cirugía menor (castraciones) y urgencias",
+        bio: "Trabajo con procedimientos seguros y un seguimiento postoperatorio cercano.",
+        servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Estética y baño"],
+    },
+    ]);
+})
+
+test('obtenerProfesionalesDisponibles caso estetica', () => {
+    expect(obtenerProfesionalesDisponibles("Estética y baño", "2026-03-12", "10:00")).toStrictEqual([{
+
+        id: 1,
+        nombre: "Dra. Sofía Pereira",
+        tipo: "Veterinaria",
+        foto: "img/mujer1.png",
+        especialidad: "Clínica general y medicina preventiva (vacunas, controles)",
+        bio: "Me enfoco en prevenir problemas antes de que aparezcan y en explicar todo de forma clara.",
+        servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Estética y baño"],
+    },
+    {
+        id: 2,
+        nombre: "Dr. Martín Rodríguez",
+        tipo: "Veterinario",
+        foto: "img/hombre1.png",
+        especialidad: "Cirugía menor (castraciones) y urgencias",
+        bio: "Trabajo con procedimientos seguros y un seguimiento postoperatorio cercano.",
+        servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Estética y baño"],
+    },
+    {
+        id: 3,
+        nombre: "Valentina López",
+        tipo: "Estética y baño",
+        foto: "img/mujer2.png",
+        especialidad: "Baño, secado, corte higiénico y manejo de mascotas nerviosas",
+        bio: "Prioridad: que la experiencia sea tranquila y sin estrés.",
+        servicios: ["Estética y baño"],
+    }
+    ])
+
+});

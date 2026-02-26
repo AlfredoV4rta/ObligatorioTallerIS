@@ -8,6 +8,8 @@ const DURACION_SERVICIOS = {
     "Estética y baño": 60
 };
 
+const obtenerProfesionales = require('./profesionales');
+
 // Horarios de atención (9:00 a 18:00)
 const HORA_INICIO = 9;
 const HORA_FIN = 18;
@@ -425,4 +427,4 @@ function obtenerHorariosDisponibles(tipoServicio, fecha, profesionalId) {
     return horariosDisponibles;
 }
 
-module.exports = {validarEmail, validarTelefono, validarDatosReserva, crearReserva, obtenerProfesionalesDisponibles, verificarDisponibilidadProfesional, obtenerDuracionServicio};
+module.exports = { validarEmail, validarTelefono, validarDatosReserva, crearReserva, obtenerProfesionalesDisponibles, verificarDisponibilidadProfesional, obtenerDuracionServicio };
