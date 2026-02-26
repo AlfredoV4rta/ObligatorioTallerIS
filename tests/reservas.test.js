@@ -215,22 +215,54 @@ test('crearReserva caso exito', () => {
         fecha: "2026-03-12",
         hora: "10:00"
     }
-    expect(crearReserva(datos)).toStrictEqual({exito: true, reserva: {
-        nombre_dueno: "Juan Perez",
-        nombre_mascota: "Firulais",
-        telefono: "092345817",
-        email: "juanperez@gmail.com",
-        tipo_servicio: "Estética y baño",
-        profesional_id: 1,
-        fecha: "2026-03-12",
-        hora: "10:00",
-        duracion_minutos: 60,
-        fecha_creacion: new Date().getDate(),
-        estado: "confirmada"
-    }})
+    expect(crearReserva(datos)).toStrictEqual({
+        exito: true, reserva: {
+            nombre_dueno: "Juan Perez",
+            nombre_mascota: "Firulais",
+            telefono: "092345817",
+            email: "juanperez@gmail.com",
+            tipo_servicio: "Estética y baño",
+            profesional_id: 1,
+            fecha: "2026-03-12",
+            hora: "10:00",
+            duracion_minutos: 60,
+            fecha_creacion: new Date().getDate(),
+            estado: "confirmada"
+        }
+    })
 })
 
 test('crearReserva caso error validacion', () => {
+    const reserva1 = {
+        nombre_dueno: "Juan Perez",
+        nombre_mascota: "Mili",
+        telefono: "092345817",
+        email: "juanperez@gmail.com",
+        tipo_servicio: "Estética y baño",
+        fecha: "2026-03-12",
+        hora: "10:00"
+    }
+
+    const reserva2 = {
+        nombre_dueno: "Juan Perez",
+        nombre_mascota: "Mili",
+        telefono: "092345817",
+        email: "juanperez@gmail.com",
+        tipo_servicio: "Estética y baño",
+        fecha: "2026-03-12",
+        hora: "10:00"
+    }
+
+    const reserva3 = {
+        nombre_dueno: "Juan Perez",
+        nombre_mascota: "Mili",
+        telefono: "092345817",
+        email: "juanperez@gmail.com",
+        tipo_servicio: "Estética y baño",
+        fecha: "2026-03-12",
+        hora: "10:00"
+    }
+
     const datos = {
         nombre_dueno: "Juan Perez",
         nombre_mascota: "Mili",
@@ -241,9 +273,27 @@ test('crearReserva caso error validacion', () => {
         hora: "10:00"
     }
 
-    crearReserva(datos);
-    crearReserva(datos);
+    crearReserva(reserva1);
+    crearReserva(reserva2);
+    crearReserva(reserva3);
+
+    expect(crearReserva(datos)).toStrictEqual({ exito: false, errores: ["No hay profesionales disponibles en ese horario"] })
+})
+
+test('crearReserva caso error validacion', () => {
+
+    const datos = {
+        nombre_dueno: "Juan Perez",
+        nombre_mascota: "Mili",
+        telefono: "092345817",
+        profesional_id: 1,
+        email: "juanperez@gmail.com",
+        tipo_servicio: "Estética y baño",
+        fecha: "2026-03-12",
+        hora: "10:00"
+    }
+
     crearReserva(datos);
 
-    expect(crearReserva(datos)).toStrictEqual({exito: false, errores: ["El profesional seleccionado no está disponible en ese horario"]})
+    expect(crearReserva(datos)).toStrictEqual({ exito: false, errores: ["El profesional seleccionado no está disponible en ese horario"] })
 })
