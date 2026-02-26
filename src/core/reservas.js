@@ -12,12 +12,6 @@ const DURACION_SERVICIOS = {
 const HORA_INICIO = 9;
 const HORA_FIN = 18;
 
-obtenerProfesionales
-
-if (typeof module !== 'undefined' && module.exports) {
-    const obtenerProfesionales = require('./profesionales');
-}
-
 function inicializarReservas() {
     const reservasExistentes = localStorage.getItem(STORAGE_KEY_RESERVAS);
     if (reservasExistentes === null) {

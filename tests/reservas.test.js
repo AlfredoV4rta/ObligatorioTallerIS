@@ -1,3 +1,6 @@
+// Mock global ANTES de cualquier require
+global.obtenerProfesionales = require('../src/core/profesionales');
+
 const {
     validarEmail,
     validarTelefono,
@@ -7,8 +10,6 @@ const {
     verificarDisponibilidadProfesional,
     obtenerDuracionServicio
 } = require('../src/core/reservas');
-
-const obtenerProfesionales = require('../src/core/profesionales');
 
 // Pruebas para validarEmail
 
@@ -81,7 +82,6 @@ test('validarDatosReserva caso error email invalido', () => {
         fecha: "2026-03-12",
         hora: "10:00"
     }
-
     expect(validarDatosReserva(datos)).toStrictEqual(["El email debe contener @ y terminar en .com"]);
 })
 
@@ -95,7 +95,6 @@ test('validarDatosReserva caso error telefono invalido', () => {
         fecha: "2026-03-12",
         hora: "10:00"
     }
-
     expect(validarDatosReserva(datos)).toStrictEqual(["El teléfono debe tener 9 dígitos y comenzar con 09"]);
 })
 
@@ -136,7 +135,6 @@ test('validarDatosReserva caso error hora faltante', () => {
         hora: ""
     }
     expect(validarDatosReserva(datos)).toStrictEqual(["La hora es obligatoria"]);
-
 })
 
 test('validarDatosReserva caso exito', () => {
@@ -150,13 +148,11 @@ test('validarDatosReserva caso exito', () => {
         hora: "10:00"
     }
     expect(validarDatosReserva(datos)).toStrictEqual([]);
-
 })
 
 // Pruebas para obtenerProfesionalesDisponibles
 
 test('obtenerProfesionalesDisponibles caso veterinarios', () => {
-
     expect(obtenerProfesionalesDisponibles("Consulta General", "2026-03-12", "10:00")).toStrictEqual([{
         id: 1,
         nombre: "Dra. Sofía Pereira",
@@ -174,13 +170,11 @@ test('obtenerProfesionalesDisponibles caso veterinarios', () => {
         especialidad: "Cirugía menor (castraciones) y urgencias",
         bio: "Trabajo con procedimientos seguros y un seguimiento postoperatorio cercano.",
         servicios: ["Consulta General", "Vacunación y Desparasitación", "Castración", "Estética y baño"],
-    },
-    ]);
+    }]);
 })
 
 test('obtenerProfesionalesDisponibles caso estetica', () => {
     expect(obtenerProfesionalesDisponibles("Estética y baño", "2026-03-12", "10:00")).toStrictEqual([{
-
         id: 1,
         nombre: "Dra. Sofía Pereira",
         tipo: "Veterinaria",
@@ -206,10 +200,8 @@ test('obtenerProfesionalesDisponibles caso estetica', () => {
         especialidad: "Baño, secado, corte higiénico y manejo de mascotas nerviosas",
         bio: "Prioridad: que la experiencia sea tranquila y sin estrés.",
         servicios: ["Estética y baño"],
-    }
-    ])
-
-});
+    }]);
+})
 
 // Prueba crearReserva
 
@@ -223,7 +215,6 @@ test('crearReserva caso exito', () => {
         fecha: "2026-03-12",
         hora: "10:00"
     }
-    
     expect(crearReserva(datos)).toStrictEqual({exito: true, reserva: {
         nombre_dueno: "Juan Perez",
         nombre_mascota: "Firulais",
@@ -253,6 +244,6 @@ test('crearReserva caso error validacion', () => {
     crearReserva(datos);
     crearReserva(datos);
     crearReserva(datos);
-    
+
     expect(crearReserva(datos)).toStrictEqual({exito: false, errores: ["El profesional seleccionado no está disponible en ese horario"]})
 })
